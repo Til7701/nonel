@@ -1,4 +1,4 @@
-package de.holube;
+package de.holube.nonel;
 
 public class Main {
 

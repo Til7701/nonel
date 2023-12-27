@@ -1,0 +1,71 @@
+name: GraalVM Native Image builds
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  verify:
+    name: Verify project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Verify with Maven
+        run: mvn --batch-mode --update-snapshots verify
+
+  build:
+    needs: verify
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup graalvm
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '21'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+          version: 'latest'
+
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots clean install package
+
+      - name: Upload jars to release
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/nonel.jar
+          asset_name: nonel-${{ matrix.os }}.jar
+          prerelease: true
+          overwrite: true
+          tag: dev
+          release_name: dev release
+
+      - name: Build native image
+        run: native-image -jar target/nonel.jar
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: nonel
+          asset_name: nonel-${{ matrix.os }}
+          prerelease: true
+          overwrite: true
+          tag: dev
+          release_name: dev release
