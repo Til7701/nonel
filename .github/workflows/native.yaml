@@ -27,6 +27,8 @@ jobs:
     strategy:
       matrix:
         os: [ macos-latest, windows-latest, ubuntu-latest ]
+        binary-file-ending: [ "" ".exe" "" ]
+        file-modifier: [ "mac" "win" "linux" ]
     steps:
       - uses: actions/checkout@v4
       - name: Setup graalvm
@@ -63,8 +65,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: nonel
-          asset_name: nonel-${{ matrix.os }}
+          file: nonel-${{ matrix.file-modifier }}${{ matrix.binary-file-ending }}
+          asset_name: nonel-${{ matrix.binary-file-ending }}
           prerelease: true
           overwrite: true
           tag: dev
