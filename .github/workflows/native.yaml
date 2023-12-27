@@ -51,15 +51,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/nonel.jar
-          asset_name: nonel${{ matrix.os.file-modifier }}.jar
+          file: target/noel.jar
+          asset_name: noel${{ matrix.os.file-modifier }}.jar
           prerelease: true
           overwrite: true
           tag: dev
           release_name: dev release
 
       - name: Build native image
-        run: native-image -jar target/nonel.jar
+        run: native-image -jar target/noel.jar
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
@@ -67,8 +67,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: nonel${{ matrix.os.binary-file-ending }}
-          asset_name: nonel${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
+          file: noel${{ matrix.os.binary-file-ending }}
+          asset_name: noel${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
           prerelease: true
           overwrite: true
           tag: dev

@@ -50,10 +50,10 @@
                     <archive>
                         <manifest>
                             <addClasspath>false</addClasspath>
-                            <mainClass>de.holube.nonel.Main</mainClass>
+                            <mainClass>de.holube.noel.Main</mainClass>
                         </manifest>
                     </archive>
-                    <finalName>nonel</finalName>
+                    <finalName>noel</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
