@@ -27,8 +27,8 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: macos-latest, binary-file-ending: "", file-modifier: "mac" }
-          { name: windows-latest, binary-file-ending: ".exe", file-modifier: "win" }
+          { name: macos-latest, binary-file-ending: "", file-modifier: "mac" },
+          { name: windows-latest, binary-file-ending: ".exe", file-modifier: "win" },
           { name: ubuntu-latest, binary-file-ending: "", file-modifier: "linux" }
         ]
     steps:
