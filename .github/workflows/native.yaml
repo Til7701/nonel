@@ -22,13 +22,15 @@ jobs:
 
   build:
     needs: verify
-    name: Build on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Build on ${{ matrix.os.name }}
+    runs-on: ${{ matrix.os.name }}
     strategy:
       matrix:
-        os: [ macos-latest, windows-latest, ubuntu-latest ]
-        binary-file-ending: [ "" ".exe" "" ]
-        file-modifier: [ "mac" "win" "linux" ]
+        os: [
+          { name: macos-latest, binary-file-ending: "", file-modifier: "mac" }
+          { name: windows-latest, binary-file-ending: ".exe", file-modifier: "win" }
+          { name: ubuntu-latest, binary-file-ending: "", file-modifier: "linux" }
+        ]
     steps:
       - uses: actions/checkout@v4
       - name: Setup graalvm
@@ -50,7 +52,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/nonel.jar
-          asset_name: nonel-${{ matrix.os }}.jar
+          asset_name: nonel-${{ matrix.os.file-modifier }}.jar
           prerelease: true
           overwrite: true
           tag: dev
@@ -65,8 +67,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: nonel-${{ matrix.file-modifier }}${{ matrix.binary-file-ending }}
-          asset_name: nonel-${{ matrix.binary-file-ending }}
+          file: nonel-${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
+          asset_name: nonel-${{ matrix.os.binary-file-ending }}
           prerelease: true
           overwrite: true
           tag: dev
