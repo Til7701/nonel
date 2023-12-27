@@ -45,7 +45,7 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots clean install package
 
-      - name: Upload jars to release
+      - name: Upload jar to release
         uses: svenstaro/upload-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -67,8 +67,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: nonel${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
-          asset_name: nonel${{ matrix.os.binary-file-ending }}
+          file: nonel${{ matrix.os.binary-file-ending }}
+          asset_name: nonel${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
           prerelease: true
           overwrite: true
           tag: dev
