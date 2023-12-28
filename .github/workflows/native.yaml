@@ -57,5 +57,5 @@ jobs:
           asset_name: noel_0.0.1_${{ matrix.os.binary-file-ending }}
           prerelease: true
           overwrite: true
-          tag: dev
-          release_name: dev release
+          tag: dev-jpackage
+          release_name: dev release with jpackage
