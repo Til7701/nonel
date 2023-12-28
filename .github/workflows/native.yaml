@@ -28,8 +28,8 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: windows-latest, binary-file-start: "NoEl", binary-file-ending: ".exe" },
-          { name: ubuntu-latest, binary-file-start: "noel", binary-file-ending: "_amd64.deb" }
+          { name: windows-latest, binary-file-start: "NoEl-", binary-file-ending: ".exe" },
+          { name: ubuntu-latest, binary-file-start: "noel_", binary-file-ending: "_amd64.deb" }
         ]
     steps:
       - uses: actions/checkout@v4
@@ -52,8 +52,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/dist/${{ matrix.os.binary-file-start }}_0.0.1${{ matrix.os.binary-file-ending }}
-          asset_name: ${{ matrix.os.binary-file-start }}_0.0.1${{ matrix.os.binary-file-ending }}
+          file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
+          asset_name: ${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
           prerelease: true
           overwrite: true
           tag: dev-jpackage
