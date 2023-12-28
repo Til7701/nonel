@@ -119,7 +119,7 @@
                     <linuxAppCategory>Utilities</linuxAppCategory>
                     <linuxMenuGroup>Utilities</linuxMenuGroup>
                     <winMenu>true</winMenu>
-                    <type>{"app-image", "exe", "rpm", "deb"}</type>
+                    <!--<type>{"app-image", "exe", "rpm", "deb"}</type> can be used for setting the package type, this does not work jet-->
                     <icon>${project.basedir}/noel-icon.png</icon>
                     <javaOptions>
                         <option>-Dfile.encoding=UTF-8</option>
