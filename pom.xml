@@ -6,7 +6,7 @@
 
     <groupId>de.holube</groupId>
     <artifactId>noel</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -101,7 +101,7 @@
                 <version>${jpackage.maven.plugin.version}</version>
                 <configuration>
                     <name>NoEl</name>
-                    <appVersion>1.0-SNAPSHOT</appVersion>
+                    <appVersion>0.0.1</appVersion>
                     <vendor>de.holube</vendor>
                     <destination>target/dist</destination>
                     <module>noel/de.holube.noel.NoElApplication</module>
