@@ -24,17 +24,17 @@
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
             <version>${javafx.version}</version>
         </dependency>
 
@@ -80,6 +80,11 @@
                             <version>${lombok.version}</version>
                         </annotationProcessorPath>
                     </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>--add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</arg>
+                        <arg>--add-exports javafx.graphics/com.sun.javafx.application=noel</arg>
+                        <arg>--add-exports javafx.graphics/com.sun.glass.ui=noel</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -110,6 +115,8 @@
                     <linuxPackageName>noel</linuxPackageName>
                     <linuxAppCategory>Utilities</linuxAppCategory>
                     <linuxMenuGroup>Utilities</linuxMenuGroup>
+                    <winMenu>true</winMenu>
+                    <type>{"app-image", "exe", "rpm", "deb"}</type>
                     <icon>${project.basedir}/noel-icon.png</icon>
                     <javaOptions>
                         <option>-Dfile.encoding=UTF-8</option>
