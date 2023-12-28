@@ -29,7 +29,7 @@ jobs:
       matrix:
         os: [
           { name: windows-latest, binary-file-start: "NoEl", binary-file-ending: ".exe" },
-          { name: ubuntu-latest, ,binary-file-start: "noel", binary-file-ending: "amd64.deb" }
+          { name: ubuntu-latest, binary-file-start: "noel", binary-file-ending: "amd64.deb" }
         ]
     steps:
       - uses: actions/checkout@v4
