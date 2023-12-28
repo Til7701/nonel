@@ -7,7 +7,8 @@ public class NoElPreloader extends Preloader {
 
     @Override
     public void start(Stage primaryStage) {
-        com.sun.glass.ui.Application.GetApplication().setName("NoEl");
+        System.out.println("hi");
+        //com.sun.glass.ui.Application.GetApplication().setName("NoEl");
     }
 
 }

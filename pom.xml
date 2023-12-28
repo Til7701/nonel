@@ -80,14 +80,6 @@
                             <version>${lombok.version}</version>
                         </annotationProcessorPath>
                     </annotationProcessorPaths>
-                    <compilerArgs>
-                        <arg>--add-exports</arg>
-                        <arg>javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</arg>
-                        <arg>--add-exports</arg>
-                        <arg>javafx.graphics/com.sun.javafx.application=noel</arg>
-                        <arg>--add-exports</arg>
-                        <arg>javafx.graphics/com.sun.glass.ui=noel</arg>
-                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -114,13 +106,13 @@
                     <destination>target/dist</destination>
                     <module>noel/de.holube.noel.NoElApplication</module>
                     <runtimeImage>target/noel</runtimeImage>
+                    <resourceDir>./jpackage</resourceDir>
                     <linuxShortcut>true</linuxShortcut>
                     <linuxPackageName>noel</linuxPackageName>
                     <linuxAppCategory>Utilities</linuxAppCategory>
                     <linuxMenuGroup>Utilities</linuxMenuGroup>
                     <winMenu>true</winMenu>
                     <!--<type>{"app-image", "exe", "rpm", "deb"}</type> can be used for setting the package type, this does not work jet-->
-                    <icon>${project.basedir}/noel-icon.png</icon>
                     <javaOptions>
                         <option>-Dfile.encoding=UTF-8</option>
                     </javaOptions>
