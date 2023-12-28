@@ -81,9 +81,12 @@
                         </annotationProcessorPath>
                     </annotationProcessorPaths>
                     <compilerArgs>
-                        <arg>--add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</arg>
-                        <arg>--add-exports javafx.graphics/com.sun.javafx.application=noel</arg>
-                        <arg>--add-exports javafx.graphics/com.sun.glass.ui=noel</arg>
+                        <arg>--add-exports</arg>
+                        <arg>javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</arg>
+                        <arg>--add-exports</arg>
+                        <arg>javafx.graphics/com.sun.javafx.application=noel</arg>
+                        <arg>--add-exports</arg>
+                        <arg>javafx.graphics/com.sun.glass.ui=noel</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
