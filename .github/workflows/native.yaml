@@ -28,8 +28,8 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: windows-latest, binary-file-ending: ".exe", file-modifier: "-win" },
-          { name: ubuntu-latest, binary-file-ending: "", file-modifier: "-linux" }
+          { name: windows-latest, binary-file-ending: ".exe" },
+          { name: ubuntu-latest, binary-file-ending: "amd64.deb" }
         ]
     steps:
       - uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: noel${{ matrix.os.binary-file-ending }}
-          asset_name: noel${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
+          asset_name: noel_0.0.1_${{ matrix.os.binary-file-ending }}
           prerelease: true
           overwrite: true
           tag: dev
