@@ -52,7 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: noel${{ matrix.os.binary-file-ending }}
+          file: noel_0.0.1_${{ matrix.os.binary-file-ending }}
           asset_name: noel_0.0.1_${{ matrix.os.binary-file-ending }}
           prerelease: true
           overwrite: true
