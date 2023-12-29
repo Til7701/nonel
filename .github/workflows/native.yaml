@@ -22,7 +22,7 @@ jobs:
 
   build-with-jpackage:
     needs: verify
-    name: Build on ${{ matrix.os.name }} with jpackage
+    name: Build on ${{ matrix.os.name }} with jpackage ${{ matrix.os.maven-profile }}
     runs-on: ${{ matrix.os.name }}
     strategy:
       matrix:

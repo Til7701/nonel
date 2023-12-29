@@ -167,7 +167,7 @@
                         <configuration>
                             <type>EXE</type>
                             <winMenu>true</winMenu>
-                            <winUpgradeUuid>de.holube.demo_fx-demo</winUpgradeUuid>
+                            <winUpgradeUuid>ed0a813c-d868-488d-9c23-1e16f0f4e8f6</winUpgradeUuid>
                         </configuration>
                     </plugin>
                 </plugins>
