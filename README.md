@@ -27,18 +27,18 @@ the resource folder for jpackage. It contains further configuration.
 To build this goal, run one of the following. Note that the differences are the second profile selected via -P and you
 can usually only build for the platform you are currently on:
 
-`mvn -P jpackage -P linux-deb clean compile javafx:jlink jpackage:jpackage`
+`mvn -P linux-deb clean compile javafx:jlink jpackage:jpackage`
 
-`mvn -P jpackage -P windows-exe clean compile javafx:jlink jpackage:jpackage`
+`mvn -P windows-exe clean compile javafx:jlink jpackage:jpackage`
 
-`mvn -P jpackage -P app-image clean compile javafx:jlink jpackage:jpackage`
+`mvn -P app-image clean compile javafx:jlink jpackage:jpackage`
 
-## Building a fat jar
+## Building a fat jar (removed)
 
 Alternatively this project can be built into a fat jar to be executed with a jre which is provided by the end user.
 To use this option you have to replace the `pom.xml` with the `pom-fat-jar-xml`.
 
-To build this goal, run: `mvn -P fat-jar clean install package`
+To build this goal, run: `mvn -P fat-jar clean install package` (removed)
 
 ## Building with GraalVM (NOT WORKING, removed from workflow)
 

@@ -27,9 +27,10 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: ubuntu-latest, out-dir: false, binary-file-name: "fx-demo_0.0.1_amd64.deb", release-name: "fx-demo_0.0.1_amd64.deb", maven-profile: "-P linux-deb" },
-          { name: ubuntu-latest, out-dir: true, binary-file-name: "PublicDemoName", release-name: "PublicDemoName-linux", maven-profile: "-P app-image" },
-          { name: windows-latest, out-dir: false, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1-setup.exe", maven-profile: "-P windows-exe" }
+          { name: ubuntu-latest, binary-file-name: "fx-demo_0.0.1_amd64.deb", release-name: "fx-demo_0.0.1_amd64.deb", maven-profile: "-P linux-deb" },
+          { name: ubuntu-latest, binary-file-name: "demo.zip", release-name: "PublicDemoName-linux-image.zip", maven-profile: "-P app-image" },
+          { name: windows-latest, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1-setup.exe", maven-profile: "-P windows-exe" },
+          { name: windows-latest, binary-file-name: "demo.zip", release-name: "PublicDemoName-win-image.zip", maven-profile: "-P app-image" }
         ]
     steps:
       - uses: actions/checkout@v4
@@ -44,33 +45,16 @@ jobs:
       - name: Build with Maven
         run: |
           mvn -P jpackage ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
-          ls target/dist/
+          ls target/
 
       - name: Upload binary to release
-        if: ${{ matrix.os.out-dir == false }}
         uses: svenstaro/upload-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/dist/${{ matrix.os.binary-file-name }}
+          file: target/${{ matrix.os.binary-file-name }}
           asset_name: ${{ matrix.os.release-name }}
-          overwrite: true
-          tag: jpackage
-          release_name: native image with jpackage
-
-      - name: ZIP if out is a directory
-        if: ${{ matrix.os.out-dir == true }}
-        run: zip -r ${{ matrix.os.release-name }}.zip target/dist/${{ matrix.os.binary-file-name }}
-      - name: Upload binary to release
-        if: ${{ matrix.os.out-dir == true }}
-        uses: svenstaro/upload-release-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ matrix.os.release-name }}.zip
-          asset_name: ${{ matrix.os.release-name }}.zip
           overwrite: true
           tag: jpackage
           release_name: native image with jpackage
