@@ -40,7 +40,7 @@ To use this option you have to replace the `pom.xml` with the `pom-fat-jar-xml`.
 
 To build this goal, run: `mvn -P fat-jar clean install package`
 
-## Building with GraalVM (NOT WORKING)
+## Building with GraalVM (NOT WORKING, removed from workflow)
 
 To build a native image with GraalVM, just pass the fat jar to GraalVM. However, GraalVM has some problems with
 reflection and JavaFX is not yet supported. Maybe [Gluon](https://gluonhq.com/) is a valid alternative, but they have
