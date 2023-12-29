@@ -11,7 +11,7 @@ By default, the sample app is built with jpackage, but it can also be built into
 image with GraalVM. All of these options are configured for linux and windows and run automatically via GitHub
 workflows.
 
-## Building with jpackage (default)
+## Building with jpackage
 
 In this project jpackage is used to build a modular maven project into native binaries.
 
@@ -40,5 +40,5 @@ a priced license in some cases and I could not be bothered to investigate it fur
 The binaries created here, do not work as intended due to the reflection problems. They still require a jre (maybe even
 more). Unless there is a way to create the binaries as standalone executables, there is no need to use GraalVM.
 
-To build a native image with GraalVM, build the fat jar, setup GraalVM on your system and run
+To build a native image with GraalVM, build the fat jar, setup GraalVM on your system and run:
 `native-image -jar target/fx-demo.jar`

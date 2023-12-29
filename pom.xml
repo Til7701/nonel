@@ -103,6 +103,7 @@
                             <linuxAppCategory>Utilities</linuxAppCategory>
                             <linuxMenuGroup>Utilities</linuxMenuGroup>
                             <winMenu>true</winMenu>
+                            <winUpgradeUuid>de.holube.demo_fx-demo</winUpgradeUuid>
                             <type>${jpackage.types}</type>
                             <javaOptions>
                                 <option>-Dfile.encoding=UTF-8</option>
@@ -172,7 +173,7 @@
                 </os>
             </activation>
             <properties>
-                <jpackage.types>"EXE"</jpackage.types>
+                <jpackage.types>{'EXE'}</jpackage.types>
             </properties>
         </profile>
         <profile>
@@ -183,7 +184,7 @@
                 </os>
             </activation>
             <properties>
-                <jpackage.types>"IMAGE", "DEB"</jpackage.types>
+                <jpackage.types>{'IMAGE', 'DEB'}</jpackage.types>
             </properties>
         </profile>
     </profiles>
