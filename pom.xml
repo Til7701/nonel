@@ -172,7 +172,7 @@
                 </os>
             </activation>
             <properties>
-                <jpackage.types>{"EXE"}</jpackage.types>
+                <jpackage.types>"EXE"</jpackage.types>
             </properties>
         </profile>
         <profile>
@@ -183,7 +183,7 @@
                 </os>
             </activation>
             <properties>
-                <jpackage.types>{"IMAGE", "DEB"}</jpackage.types>
+                <jpackage.types>"IMAGE", "DEB"</jpackage.types>
             </properties>
         </profile>
     </profiles>
