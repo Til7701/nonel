@@ -18,7 +18,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Verify with Maven
-        run: mvn --batch-mode --update-snapshots clean compile verify
+        run: mvn --batch-mode --update-snapshots verify
 
   build-with-jpackage:
     needs: verify
@@ -42,7 +42,7 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
+          mvn -P jpacakge --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
@@ -79,7 +79,7 @@ jobs:
           version: 'latest'
 
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots clean compile copy-dependencies:copy-dependencies make-assembly:single
+        run: mvn -P fat-jar --batch-mode --update-snapshots clean install package
 
       - name: Upload jar to release
         uses: svenstaro/upload-release-action@v2
