@@ -45,7 +45,6 @@ jobs:
         run: |
           mvn -P jpackage ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
           ls target/dist/
-          zip -r ${{ matrix.os.release-name }}.zip target/dist/${{ matrix.os.binary-file-name }}
 
       - name: Upload binary to release
         if: ${{ matrix.os.out-dir == false }}
@@ -59,6 +58,10 @@ jobs:
           overwrite: true
           tag: jpackage
           release_name: native image with jpackage
+          
+      - name: ZIP if out is a directory
+        if: ${{ matrix.os.out-dir == true }}
+        run: zip -r ${{ matrix.os.release-name }}.zip target/dist/${{ matrix.os.binary-file-name }}
       - name: Upload binary to release
         if: ${{ matrix.os.out-dir == true }}
         uses: svenstaro/upload-release-action@v2
