@@ -174,7 +174,7 @@
                 </os>
             </activation>
             <properties>
-                <jpackage.type>EXE</jpackage.type>
+                <jpackage.type>exe</jpackage.type>
             </properties>
         </profile>
         <profile>
@@ -185,13 +185,13 @@
                 </os>
             </activation>
             <properties>
-                <jpackage.type>DEB</jpackage.type>
+                <jpackage.type>deb</jpackage.type>
             </properties>
         </profile>
         <profile>
             <id>linux-app-image</id>
             <properties>
-                <jpackage.type>IMAGE</jpackage.type>
+                <jpackage.type>app-image</jpackage.type>
             </properties>
         </profile>
     </profiles>
