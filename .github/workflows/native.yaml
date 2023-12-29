@@ -27,8 +27,8 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb" },
-          { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: "-setup.exe" }
+          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb", second-binary-file-ending: ".appimage" },
+          { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: "-setup.exe", second-binary-file-ending: "" }
         ]
     steps:
       - uses: actions/checkout@v4
@@ -43,15 +43,29 @@ jobs:
       - name: Build with Maven
         run: |
           mvn -P jpackage --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
+          ls
 
-      - name: Upload binaries to release
+      - name: Upload binary to release
         uses: svenstaro/upload-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.jpackage-binary-file-ending }}
-          asset_name: ${{ matrix.os.binary-file-start }}0.0.1-setup${{ matrix.os.jpackage-binary-file-ending }}
+          file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
+          asset_name: ${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
+          overwrite: true
+          tag: jpackage
+          release_name: native image with jpackage
+
+      - name: Upload second binary to release
+        if: ${{ matrix.os.second-binary-file-ending != "" }}
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.second-binary-file-ending }}
+          asset_name: ${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.second-binary-file-ending }}
           overwrite: true
           tag: jpackage
           release_name: native image with jpackage
@@ -96,7 +110,7 @@ jobs:
       - name: Build native image
         run: native-image -jar target/fx-demo.jar
 
-      - name: Upload binaries to release
+      - name: Upload binary to release
         uses: svenstaro/upload-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
