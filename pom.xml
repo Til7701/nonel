@@ -98,13 +98,6 @@
                             <module>demo/de.holube.demo.MyApplication</module>
                             <runtimeImage>target/demo</runtimeImage>
                             <resourceDir>./jpackage</resourceDir>
-                            <linuxShortcut>true</linuxShortcut>
-                            <linuxPackageName>fx-demo</linuxPackageName>
-                            <linuxAppCategory>Utilities</linuxAppCategory>
-                            <linuxMenuGroup>Utilities</linuxMenuGroup>
-                            <winMenu>true</winMenu>
-                            <winUpgradeUuid>de.holube.demo_fx-demo</winUpgradeUuid>
-                            <type>${jpackage.type}</type>
                             <javaOptions>
                                 <option>-Dfile.encoding=UTF-8</option>
                             </javaOptions>
@@ -172,9 +165,19 @@
                     <family>windows</family>
                 </os>
             </activation>
-            <properties>
-                <jpackage.type>EXE</jpackage.type>
-            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <configuration>
+                            <type>EXE</type>
+                            <winMenu>true</winMenu>
+                            <winUpgradeUuid>de.holube.demo_fx-demo</winUpgradeUuid>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>linux-deb</id>
@@ -183,13 +186,26 @@
                     <family>unix</family>
                 </os>
             </activation>
-            <properties>
-                <jpackage.type>DEB</jpackage.type>
-            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <configuration>
+                            <type>DEB</type>
+                            <linuxShortcut>true</linuxShortcut>
+                            <linuxPackageName>fx-demo</linuxPackageName>
+                            <linuxAppCategory>Utilities</linuxAppCategory>
+                            <linuxMenuGroup>Utilities</linuxMenuGroup>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>linux-app-image</id>
             <properties>
+                <type>APP_IMAGE</type>
                 <jpackage.type>APP_IMAGE</jpackage.type>
             </properties>
         </profile>
