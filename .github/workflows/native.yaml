@@ -75,7 +75,6 @@ jobs:
 
       - name: Change to GraalVM config
         run: |
-          rm src/main/java/module-info.java
           rm pom.xml
           mv pom-fat-jar.xml pom.xml
 
