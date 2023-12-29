@@ -58,7 +58,7 @@ jobs:
           overwrite: true
           tag: jpackage
           release_name: native image with jpackage
-          
+
       - name: ZIP if out is a directory
         if: ${{ matrix.os.out-dir == true }}
         run: zip -r ${{ matrix.os.release-name }}.zip target/dist/${{ matrix.os.binary-file-name }}
@@ -88,14 +88,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup graalvm
-        uses: graalvm/setup-graalvm@v1
+      - name: Set up JDK
+        uses: actions/setup-java@v2
         with:
           java-version: '21'
-          distribution: 'graalvm'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          native-image-job-reports: 'true'
-          version: 'latest'
+          distribution: 'temurin'
+          cache: maven
 
       - name: Build with Maven
         run: mvn -P fat-jar --batch-mode --update-snapshots clean install package
