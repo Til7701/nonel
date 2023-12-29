@@ -58,7 +58,7 @@ jobs:
           release_name: native image with jpackage
 
       - name: Upload second binary to release
-        if: ${{ matrix.os.second-binary-file-ending != "" }}
+        if: ${{ matrix.os.second-binary-file-ending != '' }}
         uses: svenstaro/upload-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
