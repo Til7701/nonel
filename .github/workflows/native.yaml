@@ -23,7 +23,7 @@ jobs:
 
   build-with-jpackage:
     needs: verify
-    name: Build on ${{ matrix.os.name }}
+    name: Build on ${{ matrix.os.name }} with jpackage
     runs-on: ${{ matrix.os.name }}
     strategy:
       matrix:
@@ -62,7 +62,7 @@ jobs:
 
   build-with-graalvm:
     needs: verify
-    name: Build on ${{ matrix.os.name }}
+    name: Build on ${{ matrix.os.name }} to fat jar and with GraalVM
     runs-on: ${{ matrix.os.name }}
     strategy:
       matrix:
@@ -77,7 +77,7 @@ jobs:
         run: |
           rm src/main/java/module-info.java
           rm pom.xml
-          mv fat-jar-pom.xml pom.xml
+          mv pom-fat-jar.xml pom.xml
 
       - name: Setup graalvm
         uses: graalvm/setup-graalvm@v1
