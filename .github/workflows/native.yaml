@@ -95,7 +95,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/fx-demo.jar
-          asset_name: fx-demo{{ matrix.os.file-modifier }}.jar
+          asset_name: fx-demo${{ matrix.os.file-modifier }}.jar
           overwrite: true
           tag: fat-jar
           release_name: fat jar
@@ -109,8 +109,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: fx-demo{{ matrix.os.binary-file-ending }}
-          asset_name: fx-demo{{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
+          file: fx-demo${{ matrix.os.binary-file-ending }}
+          asset_name: fx-demo${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
           overwrite: true
           tag: graalvm
           release_name: native image with graalvm
