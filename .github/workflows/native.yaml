@@ -29,8 +29,7 @@ jobs:
         os: [
           { name: ubuntu-latest, out-dir: false, binary-file-name: "fx-demo_0.0.1_amd64.deb", release-name: "fx-demo_0.0.1_amd64.deb", maven-profile: "-P linux-deb" },
           { name: ubuntu-latest, out-dir: true, binary-file-name: "PublicDemoName", release-name: "PublicDemoName-linux", maven-profile: "-P app-image" },
-          { name: windows-latest, out-dir: false, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1-setup.exe", maven-profile: "-P windows-exe" },
-          { name: windows-latest, out-dir: true, binary-file-name: "PublicDemoName", release-name: "PublicDemoName-0.0.1-standalone.exe", maven-profile: "-P app-image" }
+          { name: windows-latest, out-dir: false, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1-setup.exe", maven-profile: "-P windows-exe" }
         ]
     steps:
       - uses: actions/checkout@v4
