@@ -58,38 +58,3 @@ jobs:
           overwrite: true
           tag: jpackage
           release_name: native image with jpackage
-
-  build-with-graalvm:
-    needs: verify
-    name: Build on ${{ matrix.os.name }} to fat jar and with GraalVM
-    runs-on: ${{ matrix.os.name }}
-    strategy:
-      matrix:
-        os: [
-          { name: ubuntu-latest, binary-file-ending: "", file-modifier: "-linux" },
-          { name: windows-latest, binary-file-ending: ".exe", file-modifier: "-win" }
-        ]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-
-      - name: Build with Maven
-        run: mvn -P fat-jar --batch-mode --update-snapshots clean install package
-
-      - name: Upload jar to release
-        uses: svenstaro/upload-release-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/fx-demo.jar
-          asset_name: fx-demo${{ matrix.os.file-modifier }}.jar
-          overwrite: true
-          tag: fat-jar
-          release_name: fat jar
