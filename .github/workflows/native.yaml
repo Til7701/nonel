@@ -27,8 +27,20 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb" },
-          { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: ".exe" }
+          {
+            name: ubuntu-latest,
+            binary-file-start: "fx-demo_",
+            jpackage-binary-file-ending: "_amd64.deb",
+            graal-binary-file-ending: "",
+            file-modifier: "-linux"
+          },
+          {
+            name: windows-latest,
+            binary-file-start: "PublicDemoName-",
+            jpackage-binary-file-ending: ".exe",
+            graal-binary-file-ending: ".exe",
+            file-modifier: "-win"
+          }
         ]
     steps:
       - uses: actions/checkout@v4
@@ -40,9 +52,9 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
+      - name: Build jpackage with Maven
         run: |
-          mvn clean compile javafx:jlink jpackage:jpackage
+          mvn --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
           cd target/dist
           ls
 
@@ -52,29 +64,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
-          asset_name: ${{ matrix.os.binary-file-start }}0.0.1-setup${{ matrix.os.binary-file-ending }}
+          file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.jpackage-binary-file-ending }}
+          asset_name: ${{ matrix.os.binary-file-start }}0.0.1-setup${{ matrix.os.jpackage-binary-file-ending }}
           overwrite: true
           tag: jpackage
           release_name: native image with jpackage
 
-  build-with-graalvm:
-    needs: verify
-    name: Build on ${{ matrix.os.name }} to fat jar and with GraalVM
-    runs-on: ${{ matrix.os.name }}
-    strategy:
-      matrix:
-        os: [
-          { name: ubuntu-latest, binary-file-ending: "", file-modifier: "-linux" },
-          { name: windows-latest, binary-file-ending: ".exe", file-modifier: "-win" }
-        ]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Change to GraalVM config
-        run: |
-          rm pom.xml
-          mv pom-fat-jar.xml pom.xml
 
       - name: Setup graalvm
         uses: graalvm/setup-graalvm@v1
@@ -85,8 +80,8 @@ jobs:
           native-image-job-reports: 'true'
           version: 'latest'
 
-      - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots clean install package
+      - name: Build fat jar with Maven
+        run: mvn --batch-mode --update-snapshots clean compile copy-dependencies:copy-dependencies make-assembly:single
 
       - name: Upload jar to release
         uses: svenstaro/upload-release-action@v2
@@ -109,8 +104,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: fx-demo${{ matrix.os.binary-file-ending }}
-          asset_name: fx-demo${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
+          file: fx-demo${{ matrix.os.graal-binary-file-ending }}
+          asset_name: fx-demo${{ matrix.os.file-modifier }}${{ matrix.os.graal-binary-file-ending }}
           overwrite: true
           tag: graalvm
           release_name: native image with graalvm
