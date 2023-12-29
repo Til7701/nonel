@@ -27,8 +27,8 @@ jobs:
     strategy:
       matrix:
         os: [
-          # { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb", maven_profile: "-P linux-deb" },
-          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "", maven_profile: "-P linux-app-image" },
+          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb", maven_profile: "-P linux-deb" },
+          #{ name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "", maven_profile: "-P linux-app-image" },
           { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: "-setup.exe", maven_profile: "" }
         ]
     steps:
