@@ -2,9 +2,10 @@
 
 # Known TODOs
 
-- avoid second pom (maybe remove graalvm usage?)
+- avoid second pom
 - build with specific types (use maven profiles for os specific build?)
 - `XSetErrorHandler() called with a GDK error trap pushed. Don't do that.` when running on linux
+- (maybe remove graalvm usage?)
 
 # Native Package Example for JavaFX Application
 
