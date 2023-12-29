@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.maven.plugin.version>0.0.6</javafx.maven.plugin.version>
         <jpackage.maven.plugin.version>1.4.0</jpackage.maven.plugin.version>
+        <jpackage.type>PLATFORM</jpackage.type>
     </properties>
 
     <dependencies>
@@ -104,7 +105,7 @@
                             <linuxMenuGroup>Utilities</linuxMenuGroup>
                             <winMenu>true</winMenu>
                             <winUpgradeUuid>de.holube.demo_fx-demo</winUpgradeUuid>
-                            <type>${jpackage.types}</type>
+                            <type>${jpackage.type}</type>
                             <javaOptions>
                                 <option>-Dfile.encoding=UTF-8</option>
                             </javaOptions>
@@ -166,25 +167,31 @@
             </build>
         </profile>
         <profile>
-            <id>win</id>
+            <id>windows-exe</id>
             <activation>
                 <os>
                     <family>windows</family>
                 </os>
             </activation>
             <properties>
-                <jpackage.types>{'EXE'}</jpackage.types>
+                <jpackage.type>EXE</jpackage.type>
             </properties>
         </profile>
         <profile>
-            <id>linux</id>
+            <id>linux-deb</id>
             <activation>
                 <os>
                     <family>unix</family>
                 </os>
             </activation>
             <properties>
-                <jpackage.types>{'IMAGE', 'DEB'}</jpackage.types>
+                <jpackage.type>DEB</jpackage.type>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux-app-image</id>
+            <properties>
+                <jpackage.type>IMAGE</jpackage.type>
             </properties>
         </profile>
     </profiles>

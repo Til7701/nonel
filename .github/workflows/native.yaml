@@ -27,8 +27,9 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb", second-binary-file-ending: ".appimage" },
-          { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: "-setup.exe", second-binary-file-ending: "" }
+          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb", maven_profile: "-P linux-deb" },
+          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "", maven_profile: "-P linux-app-image" },
+          { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: "-setup.exe", maven_profile: "" }
         ]
     steps:
       - uses: actions/checkout@v4
@@ -42,7 +43,7 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -P jpackage --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
+          mvn -P jpackage ${{ matrix.os.maven_profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
           ls
 
       - name: Upload binary to release
@@ -53,19 +54,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
           asset_name: ${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
-          overwrite: true
-          tag: jpackage
-          release_name: native image with jpackage
-
-      - name: Upload second binary to release
-        if: ${{ matrix.os.second-binary-file-ending != '' }}
-        uses: svenstaro/upload-release-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.second-binary-file-ending }}
-          asset_name: ${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.second-binary-file-ending }}
           overwrite: true
           tag: jpackage
           release_name: native image with jpackage
@@ -119,5 +107,6 @@ jobs:
           file: fx-demo${{ matrix.os.binary-file-ending }}
           asset_name: fx-demo${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
           overwrite: true
+          prerelease: true
           tag: graalvm
           release_name: native image with graalvm
