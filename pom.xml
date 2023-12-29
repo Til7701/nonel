@@ -22,7 +22,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.maven.plugin.version>0.0.6</javafx.maven.plugin.version>
         <jpackage.maven.plugin.version>1.4.0</jpackage.maven.plugin.version>
-        <jpackage.type>PLATFORM</jpackage.type>
     </properties>
 
     <dependencies>
@@ -204,10 +203,17 @@
         </profile>
         <profile>
             <id>linux-app-image</id>
-            <properties>
-                <type>APP_IMAGE</type>
-                <jpackage.type>APP_IMAGE</jpackage.type>
-            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <configuration>
+                            <type>APP_IMAGE</type>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 

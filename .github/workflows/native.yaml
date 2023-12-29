@@ -44,7 +44,7 @@ jobs:
       - name: Build with Maven
         run: |
           mvn -P jpackage ${{ matrix.os.maven_profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
-          ls
+          ls target/dist
 
       - name: Upload binary to release
         uses: svenstaro/upload-release-action@v2
