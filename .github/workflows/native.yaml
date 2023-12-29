@@ -108,19 +108,3 @@ jobs:
           overwrite: true
           tag: fat-jar
           release_name: fat jar
-
-      - name: Build native image
-        run: native-image -jar target/fx-demo.jar
-
-      - name: Upload binary to release
-        uses: svenstaro/upload-release-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: fx-demo${{ matrix.os.binary-file-ending }}
-          asset_name: fx-demo${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
-          overwrite: true
-          prerelease: true
-          tag: graalvm
-          release_name: native image with graalvm
