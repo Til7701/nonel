@@ -16,8 +16,8 @@ workflows.
 In this project jpackage is used to build a modular maven project into native binaries.
 
 jpackage is configured via the `jpackage-maven-plugin`. Documentation and configuration options can be found
-[here](https://akman.github.io/jpackage-maven-plugin/jpackage-mojo.html). Further documentation to jpackage itself can
-be found in the
+[here](https://github.panteleyev.org/jpackage-maven-plugin/jpackage-mojo.html). Further documentation to jpackage itself
+can be found in the
 [jpackage command documentation](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html).
 Many options are made available via the plugin, analogue to the command line options. The `./jpackage` folder is set as
 the resource folder for jpackage. It contains further configuration.

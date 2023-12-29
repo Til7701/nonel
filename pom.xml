@@ -93,7 +93,6 @@
                         <version>${jpackage.maven.plugin.version}</version>
                         <configuration>
                             <name>PublicDemoName</name>
-                            <appVersion>${project.version}</appVersion>
                             <vendor>Tilman</vendor>
                             <destination>target/dist</destination>
                             <module>demo/de.holube.demo.MyApplication</module>
@@ -174,7 +173,7 @@
                 </os>
             </activation>
             <properties>
-                <jpackage.type>{'exe'}</jpackage.type>
+                <jpackage.type>EXE</jpackage.type>
             </properties>
         </profile>
         <profile>
@@ -185,13 +184,13 @@
                 </os>
             </activation>
             <properties>
-                <jpackage.type>{'deb'}</jpackage.type>
+                <jpackage.type>DEB</jpackage.type>
             </properties>
         </profile>
         <profile>
             <id>linux-app-image</id>
             <properties>
-                <jpackage.type>{'app-image'}</jpackage.type>
+                <jpackage.type>APP_IMAGE</jpackage.type>
             </properties>
         </profile>
     </profiles>
