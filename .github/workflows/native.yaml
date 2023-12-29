@@ -27,9 +27,10 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb", maven_profile: "-P linux-deb" },
-          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "", maven_profile: "-P linux-app-image" },
-          { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: "-setup.exe", maven_profile: "" }
+          { name: ubuntu-latest, binary-file-name: "fx-demo_0.0.1_amd64.deb", release-name: "fx-demo_0.0.1_amd64.deb", maven-profile: "-P linux-deb" },
+          { name: ubuntu-latest, binary-file-name: "PublicDemoName", release-name: "PublicDemoName", maven-profile: "-P linux-app-image" },
+          { name: windows-latest, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1.exe", maven-profile: "-P windows-exe" }
+          { name: windows-latest, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1-image.exe", maven-profile: "-P windows-app-image" }
         ]
     steps:
       - uses: actions/checkout@v4
@@ -43,7 +44,7 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -P jpackage ${{ matrix.os.maven_profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
+          mvn -P jpackage ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
           ls target/dist
 
       - name: Upload binary to release
@@ -52,8 +53,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
-          asset_name: ${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
+          file: target/dist/${{ matrix.os.binary-file-name }}
+          asset_name: ${{ matrix.os.release-name }}
           overwrite: true
           tag: jpackage
           release_name: native image with jpackage
