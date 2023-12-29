@@ -29,7 +29,7 @@ jobs:
         os: [
           { name: ubuntu-latest, binary-file-name: "fx-demo_0.0.1_amd64.deb", release-name: "fx-demo_0.0.1_amd64.deb", maven-profile: "-P linux-deb" },
           { name: ubuntu-latest, binary-file-name: "PublicDemoName", release-name: "PublicDemoName", maven-profile: "-P linux-app-image" },
-          { name: windows-latest, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1.exe", maven-profile: "-P windows-exe" }
+          { name: windows-latest, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1.exe", maven-profile: "-P windows-exe" },
           { name: windows-latest, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1-image.exe", maven-profile: "-P windows-app-image" }
         ]
     steps:

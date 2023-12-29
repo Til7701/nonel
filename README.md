@@ -1,5 +1,7 @@
 > an exploration of different options to build JavaFX applications into native images
 
+[![.github/workflows/native.yaml](https://github.com/Til7701/javafx-native-image-sample/actions/workflows/native.yaml/badge.svg)](https://github.com/Til7701/javafx-native-image-sample/actions/workflows/native.yaml)
+
 # Known TODOs
 
 - `XSetErrorHandler() called with a GDK error trap pushed. Don't do that.` when running on linux
