@@ -2,6 +2,7 @@
 
 # Known TODOs
 
+- rename this repo to something like: javafx-native-image-sample
 - avoid second pom (maybe remove graalvm usage?)
 - build with specific types (use maven profiles for os specific build?)
 - `XSetErrorHandler() called with a GDK error trap pushed. Don't do that.` when running on linux
