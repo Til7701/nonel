@@ -20,9 +20,9 @@ jobs:
       - name: Verify with Maven
         run: mvn --batch-mode --update-snapshots verify
 
-  build-with-jpackage:
+  build:
     needs: verify
-    name: Build on ${{ matrix.os.name }} with jpackage
+    name: Build on ${{ matrix.os.name }}
     runs-on: ${{ matrix.os.name }}
     strategy:
       matrix:
@@ -55,8 +55,6 @@ jobs:
       - name: Build jpackage with Maven
         run: |
           mvn --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
-          cd target/dist
-          ls
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
