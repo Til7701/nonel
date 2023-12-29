@@ -24,7 +24,14 @@ can be found in the
 Many options are made available via the plugin, analogue to the command line options. The `./jpackage` folder is set as
 the resource folder for jpackage. It contains further configuration.
 
-To build this goal, run: `mvn -P jpackage clean compile javafx:jlink jpackage:jpackage`
+To build this goal, run one of the following. Note that the differences are the second profile selected via -P and you
+can usually only build for the platform you are currently on:
+
+`mvn -P jpackage -P linux-deb clean compile javafx:jlink jpackage:jpackage`
+
+`mvn -P jpackage -P windows-exe clean compile javafx:jlink jpackage:jpackage`
+
+`mvn -P jpackage -P app-image clean compile javafx:jlink jpackage:jpackage`
 
 ## Building a fat jar
 

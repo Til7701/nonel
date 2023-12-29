@@ -28,9 +28,9 @@ jobs:
       matrix:
         os: [
           { name: ubuntu-latest, binary-file-name: "fx-demo_0.0.1_amd64.deb", release-name: "fx-demo_0.0.1_amd64.deb", maven-profile: "-P linux-deb" },
-          { name: ubuntu-latest, binary-file-name: "PublicDemoName", release-name: "PublicDemoName-linux", maven-profile: "-P linux-app-image" },
+          { name: ubuntu-latest, binary-file-name: "PublicDemoName", release-name: "PublicDemoName-linux", maven-profile: "-P app-image" },
           { name: windows-latest, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-0.0.1-setup.exe", maven-profile: "-P windows-exe" },
-          { name: windows-latest, binary-file-name: "PublicDemoName", release-name: "PublicDemoName-0.0.1-standalone.exe", maven-profile: "-P windows-app-image" }
+          { name: windows-latest, binary-file-name: "PublicDemoName", release-name: "PublicDemoName-0.0.1-standalone.exe", maven-profile: "-P app-image" }
         ]
     steps:
       - uses: actions/checkout@v4
