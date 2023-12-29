@@ -1,14 +1,13 @@
-package de.holube.noel;
+package de.holube.demo;
 
 import javafx.application.Preloader;
 import javafx.stage.Stage;
 
-public class NoElPreloader extends Preloader {
+public class MyPreloader extends Preloader {
 
     @Override
     public void start(Stage primaryStage) {
         System.out.println("preloader is running");
-        //com.sun.glass.ui.Application.GetApplication().setName("NoEl");
     }
 
 }

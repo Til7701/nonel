@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - jpackage
 
 jobs:
   verify:
@@ -28,8 +27,8 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: ubuntu-latest, binary-file-start: "noel_", binary-file-ending: "_amd64.deb" },
-          { name: windows-latest, binary-file-start: "NoEl-", binary-file-ending: ".exe" }
+          { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb" },
+          { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: "-setup.exe" }
         ]
     steps:
       - uses: actions/checkout@v4
@@ -55,10 +54,9 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
           asset_name: ${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
-          prerelease: true
           overwrite: true
-          tag: dev-jpackage
-          release_name: dev release (native image with jpackage)
+          tag: jpackage
+          release_name: native image with jpackage
 
   build-with-graalvm:
     needs: verify
@@ -96,15 +94,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/noel.jar
-          asset_name: noel${{ matrix.os.file-modifier }}.jar
-          prerelease: true
+          file: target/fx-demo.jar
+          asset_name: fx-demo{{ matrix.os.file-modifier }}.jar
           overwrite: true
-          tag: dev-fat-jar
-          release_name: dev release (fat jar)
+          tag: fat-jar
+          release_name: fat jar
 
       - name: Build native image
-        run: native-image -jar target/noel.jar
+        run: native-image -jar target/fx-demo.jar
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
@@ -112,9 +109,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: noel${{ matrix.os.binary-file-ending }}
-          asset_name: noel${{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
-          prerelease: true
+          file: fx-demo{{ matrix.os.binary-file-ending }}
+          asset_name: fx-demo{{ matrix.os.file-modifier }}${{ matrix.os.binary-file-ending }}
           overwrite: true
-          tag: dev-graalvm
-          release_name: dev release (native image with graalvm)
+          tag: graalvm
+          release_name: native image with graalvm

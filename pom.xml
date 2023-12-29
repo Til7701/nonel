@@ -5,20 +5,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.holube</groupId>
-    <artifactId>noel</artifactId>
+    <artifactId>demo</artifactId>
     <version>0.0.1</version>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- dependencies -->
         <javafx.version>21.0.1</javafx.version>
+        <lombok.version>1.18.30</lombok.version>
         <junit.version>5.10.1</junit.version>
         <mockito.version>5.7.0</mockito.version>
-        <lombok.version>1.18.30</lombok.version>
+
+        <!-- build -->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.release>11</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.maven.plugin.version>0.0.6</javafx.maven.plugin.version>
         <jpackage.maven.plugin.version>1.4.0</jpackage.maven.plugin.version>
-        <maven.compiler.release>11</maven.compiler.release>
     </properties>
 
     <dependencies>
@@ -87,10 +90,10 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>${javafx.maven.plugin.version}</version>
                 <configuration>
-                    <jlinkImageName>noel</jlinkImageName>
-                    <jlinkZipName>noel</jlinkZipName>
+                    <jlinkImageName>demo</jlinkImageName>
+                    <jlinkZipName>demo</jlinkZipName>
                     <launcher>launcher</launcher>
-                    <mainClass>noel/de.holube.noel.NoElApplication</mainClass>
+                    <mainClass>demo/de.holube.demo.MyApplication</mainClass>
                     <stripDebug>true</stripDebug>
                     <noManPages>true</noManPages>
                 </configuration>
@@ -100,15 +103,15 @@
                 <artifactId>jpackage-maven-plugin</artifactId>
                 <version>${jpackage.maven.plugin.version}</version>
                 <configuration>
-                    <name>NoEl</name>
+                    <name>PublicDemoName</name>
                     <appVersion>0.0.1</appVersion>
-                    <vendor>de.holube</vendor>
+                    <vendor>Tilman</vendor>
                     <destination>target/dist</destination>
-                    <module>noel/de.holube.noel.NoElApplication</module>
-                    <runtimeImage>target/noel</runtimeImage>
+                    <module>demo/de.holube.demo.MyApplication</module>
+                    <runtimeImage>target/demo</runtimeImage>
                     <resourceDir>./jpackage</resourceDir>
                     <linuxShortcut>true</linuxShortcut>
-                    <linuxPackageName>noel</linuxPackageName>
+                    <linuxPackageName>fx-demo</linuxPackageName>
                     <linuxAppCategory>Utilities</linuxAppCategory>
                     <linuxMenuGroup>Utilities</linuxMenuGroup>
                     <winMenu>true</winMenu>

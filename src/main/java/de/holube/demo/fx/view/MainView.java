@@ -1,4 +1,4 @@
-package de.holube.noel.fx.view;
+package de.holube.demo.fx.view;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
