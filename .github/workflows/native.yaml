@@ -28,7 +28,7 @@ jobs:
       matrix:
         os: [
           { name: ubuntu-latest, binary-file-start: "fx-demo_", binary-file-ending: "_amd64.deb" },
-          { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: "-setup.exe" }
+          { name: windows-latest, binary-file-start: "PublicDemoName-", binary-file-ending: ".exe" }
         ]
     steps:
       - uses: actions/checkout@v4
@@ -53,7 +53,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/dist/${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
-          asset_name: ${{ matrix.os.binary-file-start }}0.0.1${{ matrix.os.binary-file-ending }}
+          asset_name: ${{ matrix.os.binary-file-start }}0.0.1-setup${{ matrix.os.binary-file-ending }}
           overwrite: true
           tag: jpackage
           release_name: native image with jpackage
