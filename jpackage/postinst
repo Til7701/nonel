@@ -1,1 +1,4 @@
-echo "test"
+#!/bin/sh
+
+echo "fx-demo post install"
+ln -s /opt/fx-demo /bin/fx-demo
