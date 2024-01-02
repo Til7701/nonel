@@ -1,0 +1,5 @@
+#!/bin/sh
+
+pwd
+rm -r /opt/fx-demo/
+rm /bin/fx-demo

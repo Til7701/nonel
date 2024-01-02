@@ -1,4 +1,3 @@
 #!/bin/sh
 
-echo "fx-demo post install"
 ln -s /opt/fx-demo/bin/PublicDemoName /bin/fx-demo
