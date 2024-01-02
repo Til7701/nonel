@@ -9,8 +9,11 @@
 
 # Native Package Example for JavaFX Application
 
-This sample app is built with jpackage. In previous iterations of this project, it could also be built into a fat jar and further into a native
+This sample app is built with jpackage. In previous iterations of this project, it could also be built into a fat jar
+and further into a native
 image with GraalVM. However, these two options have been removed to reduce complexity of the build process.
+
+> Note: the deb package should be installed via `dpkg`.
 
 ## Building with jpackage
 
