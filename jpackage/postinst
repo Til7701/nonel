@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if  [ "$1" = install ]; then
+  ln -sf /opt/fx-demo/bin/PublicDemoName /bin/fx-demo
+fi
