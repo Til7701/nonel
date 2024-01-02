@@ -2,8 +2,11 @@
 
 set -e
 
-pwd
+echo "Running post rm"
 if [ "$1" = 'remove' ]; then
+  echo "Running post rm with remove"
   rm -r /opt/fx-demo/
   rm /bin/fx-demo
 fi
+
+exit 0
