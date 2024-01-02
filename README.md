@@ -5,13 +5,12 @@
 # Known TODOs
 
 - `XSetErrorHandler() called with a GDK error trap pushed. Don't do that.` when running on linux
-- (maybe remove graalvm usage?)
+- maybe use maven plugin management
 
 # Native Package Example for JavaFX Application
 
-By default, the sample app is built with jpackage, but it can also be built into a fat jar and further into a native
-image with GraalVM. All of these options are configured for linux and windows and run automatically via GitHub
-workflows.
+This sample app is built with jpackage. In previous iterations of this project, it could also be built into a fat jar and further into a native
+image with GraalVM. However, these two options have been removed to reduce complexity of the build process.
 
 ## Building with jpackage
 
