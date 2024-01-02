@@ -44,7 +44,7 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -P jpackage ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
+          mvn ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
           ls target/
 
       - name: Upload binary to release
