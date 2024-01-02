@@ -2,9 +2,8 @@
 
 set -e
 
-echo "Running post rm"
+echo "Running post rm with $1"
 if [ "$1" = 'remove' ]; then
-  echo "Running post rm with remove"
   rm -r /opt/fx-demo/
   rm /bin/fx-demo
 fi
