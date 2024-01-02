@@ -2,15 +2,11 @@
 
 set -e
 
-echo "Running post inst with"
-if  [ "$1" = install ]; then
-  echo "Running post inst with install"
-  ln -sf /opt/fx-demo/bin/PublicDemoName /bin/fx-demo
-fi
-
+echo "Running post inst"
 if  [ "$1" = configure ]; then
   echo "Running post inst with configure"
   xdg-desktop-menu install /opt/fx-demo/lib/fx-demo-PublicDemoName.desktop
+  ln -sf /opt/fx-demo/bin/PublicDemoName /bin/fx-demo
 fi
 
 exit 0
