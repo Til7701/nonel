@@ -8,10 +8,14 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.Taskbar.Feature;
+import java.util.Arrays;
 
 public class MyApplication extends Application {
 
+    private static String[] args;
+
     public static void main(String[] args) {
+        MyApplication.args = args;
         System.setProperty("javafx.preloader", "de.holube.demo.MyPreloader");
         launch(args);
     }
@@ -20,6 +24,7 @@ public class MyApplication extends Application {
     public void start(Stage primaryStage) {
         setupIcons(primaryStage);
         MainView mainView = new MainView();
+        mainView.setText(Arrays.toString(args));
         Scene scene = new Scene(mainView, 320, 240);
         primaryStage.setTitle("Demo");
         primaryStage.setScene(scene);
