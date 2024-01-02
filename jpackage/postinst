@@ -1,5 +1,5 @@
 #!/bin/sh
 
 if  [ "$1" = install ]; then
-  ln -s /opt/fx-demo/bin/PublicDemoName /bin/fx-demo
+  ln -sf /opt/fx-demo/bin/PublicDemoName /bin/fx-demo
 fi
