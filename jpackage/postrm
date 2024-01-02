@@ -1,7 +1,0 @@
-#!/bin/sh
-
-pwd
-if [ "$1" = 'remove' ]; then
-  rm -r /opt/fx-demo/
-  rm /bin/fx-demo
-fi
