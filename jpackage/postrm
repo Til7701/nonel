@@ -1,5 +1,7 @@
 #!/bin/sh
 
 pwd
-rm -r /opt/fx-demo/
-rm /bin/fx-demo
+if [ "$1" = 'remove' ]; then
+  rm -r /opt/fx-demo/
+  rm /bin/fx-demo
+fi
