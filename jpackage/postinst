@@ -1,5 +1,13 @@
 #!/bin/sh
 
+set -e
+
 if  [ "$1" = install ]; then
   ln -sf /opt/fx-demo/bin/PublicDemoName /bin/fx-demo
 fi
+
+if  [ "$1" = configure ]; then
+  xdg-desktop-menu install /opt/fx-demo/lib/fx-demo-PublicDemoName.desktop
+fi
+
+exit 0
