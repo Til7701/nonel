@@ -67,7 +67,7 @@ of things are removed. These are not important for the end user.
 ## JPackage
 
 The interesting part of this project is `jpackage`. It is a command line tool, which can convert a java application to
-a native image for the os you are on. Documentation can be found
+a native image for the os you are on (this is not true, maybe I will correct this later). Documentation can be found
 [here](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html).
 
 In this project jpackage is configured by the `jpackage-maven-plugin` from `org.panteleyev`. Documentation for the
