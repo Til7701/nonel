@@ -31,7 +31,7 @@ jobs:
     strategy:
       matrix:
         os: [
-          { name: ubuntu-latest, binary-file-name: "fx-demo_0.0.1_amd64.deb", release-name: "fx-demo_amd64.deb", maven-profile: "-P linux-deb" },
+          { name: ubuntu-latest, binary-file-name: "fx-demo_0.0.1_amd64.deb", release-name: "fx-demo_0.0.1_amd64.deb", maven-profile: "-P linux-deb" },
           { name: ubuntu-latest, binary-file-name: "demo.zip", release-name: "PublicDemoName-linux-image.zip", maven-profile: "-P app-image" },
           { name: windows-latest, binary-file-name: "PublicDemoName-0.0.1.exe", release-name: "PublicDemoName-setup.exe", maven-profile: "-P windows-exe" }
         ]
