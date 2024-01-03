@@ -120,6 +120,44 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>jpackage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-maven-plugin</artifactId>
+                        <version>${javafx.maven.plugin.version}</version>
+                        <configuration>
+                            <stripDebug>true</stripDebug>
+                            <compress>1</compress>
+                            <noHeaderFiles>true</noHeaderFiles>
+                            <noManPages>true</noManPages>
+                            <jlinkImageName>demo</jlinkImageName>
+                            <jlinkZipName>demo</jlinkZipName>
+                            <launcher>launcher</launcher>
+                            <mainClass>demo/de.holube.demo.MyApplication</mainClass>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <version>${jpackage.maven.plugin.version}</version>
+                        <configuration>
+                            <name>PublicDemoName</name>
+                            <vendor>Tilman</vendor>
+                            <destination>target/dist</destination>
+                            <module>demo/de.holube.demo.MyApplication</module>
+                            <runtimeImage>target/demo</runtimeImage>
+                            <resourceDir>./jpackage</resourceDir>
+                            <javaOptions>
+                                <option>-Dfile.encoding=UTF-8</option>
+                            </javaOptions>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <build>
@@ -137,37 +175,6 @@
                             <version>${lombok.version}</version>
                         </annotationProcessorPath>
                     </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>${javafx.maven.plugin.version}</version>
-                <configuration>
-                    <stripDebug>true</stripDebug>
-                    <compress>1</compress>
-                    <noHeaderFiles>true</noHeaderFiles>
-                    <noManPages>true</noManPages>
-                    <jlinkImageName>demo</jlinkImageName>
-                    <jlinkZipName>demo</jlinkZipName>
-                    <launcher>launcher</launcher>
-                    <mainClass>demo/de.holube.demo.MyApplication</mainClass>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.panteleyev</groupId>
-                <artifactId>jpackage-maven-plugin</artifactId>
-                <version>${jpackage.maven.plugin.version}</version>
-                <configuration>
-                    <name>PublicDemoName</name>
-                    <vendor>Tilman</vendor>
-                    <destination>target/dist</destination>
-                    <module>demo/de.holube.demo.MyApplication</module>
-                    <runtimeImage>target/demo</runtimeImage>
-                    <resourceDir>./jpackage</resourceDir>
-                    <javaOptions>
-                        <option>-Dfile.encoding=UTF-8</option>
-                    </javaOptions>
                 </configuration>
             </plugin>
         </plugins>

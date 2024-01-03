@@ -47,7 +47,7 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
+          mvn -P jpackage ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
 
       - name: zip target app-image
         if: contains(matrix.os.maven-profile, 'app-image')

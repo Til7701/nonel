@@ -110,7 +110,7 @@ functionality. The scripts are pretty self-explanatory. Documentation on these s
 
 You can build the package by running:
 
-`mvn -P linux-deb clean compile javafx:jlink jpackage:jpackage`
+`mvn -P jpackage -P linux-deb clean compile javafx:jlink jpackage:jpackage`
 
 The package can be found in `target/dist/`.
 
@@ -148,7 +148,7 @@ The icon for the app is automatically `PublicDemoName.ico` due to the name set i
 
 You can build the package by running:
 
-`mvn -P windows-exe clean compile javafx:jlink jpackage:jpackage`
+`mvn -P jpackage -P windows-exe clean compile javafx:jlink jpackage:jpackage`
 
 The setup exe can be found in `target/dist/`.
 
@@ -183,7 +183,7 @@ The icon for the app is automatically `PublicDemoName.png` due to the name set i
 
 You can build the package by running:
 
-`mvn -P app-image clean compile javafx:jlink jpackage:jpackage`
+`mvn -P jpackage -P app-image clean compile javafx:jlink jpackage:jpackage`
 
 The image can be found in `target/dist/`.
 
