@@ -1,9 +1,10 @@
-name: Native Image Builds
+name: Native Image Build
 
 on:
   push:
     branches:
       - master
+
 
 jobs:
   verify:
@@ -11,14 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+
       - name: Verify with Maven
         run: mvn --batch-mode --update-snapshots verify
+
 
   build-with-jpackage:
     needs: verify
@@ -45,7 +49,6 @@ jobs:
       - name: Build with Maven
         run: |
           mvn ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
-          ls target/
 
       - name: Upload binary to release
         uses: svenstaro/upload-release-action@v2

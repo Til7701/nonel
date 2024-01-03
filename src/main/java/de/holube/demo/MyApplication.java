@@ -12,10 +12,8 @@ import java.util.Arrays;
 
 public class MyApplication extends Application {
 
-    private static String[] args;
-
     public static void main(String[] args) {
-        MyApplication.args = args;
+        System.out.println(Arrays.toString(args));
         System.setProperty("javafx.preloader", "de.holube.demo.MyPreloader");
         launch(args);
     }
@@ -24,21 +22,25 @@ public class MyApplication extends Application {
     public void start(Stage primaryStage) {
         setupIcons(primaryStage);
         MainView mainView = new MainView();
-        mainView.setText(Arrays.toString(args));
         Scene scene = new Scene(mainView, 320, 240);
         primaryStage.setTitle("Demo");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    /**
+     * This method loads the icon for this application from the resources and sets on the taskbar and application bar.
+     *
+     * @param primaryStage the stage to set the icon on
+     */
     private void setupIcons(Stage primaryStage) {
         //Set icon on the application bar
-        Image appIcon = new Image(String.valueOf(getClass().getResource("/icons/icon.png")));
+        final Image appIcon = new Image(String.valueOf(getClass().getResource("/icons/icon.png")));
         primaryStage.getIcons().add(appIcon);
 
         //Set icon on the taskbar/dock
         if (Taskbar.isTaskbarSupported()) {
-            Taskbar taskbar = Taskbar.getTaskbar();
+            final Taskbar taskbar = Taskbar.getTaskbar();
             if (taskbar.isSupported(Feature.ICON_IMAGE)) {
                 final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
                 final java.awt.Image dockIcon = defaultToolkit.getImage(getClass().getResource("/icons/icon.png"));
