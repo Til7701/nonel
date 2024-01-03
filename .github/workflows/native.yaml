@@ -49,10 +49,12 @@ jobs:
         run: |
           mvn ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
 
-      - name: Zip target appimage
+      - name: zip target app-image
         if: contains(matrix.os.maven-profile, 'app-image')
         run: |
-          zip -r target/dist/demo.zip target/dist/PublicDemoName
+          pushd target/dist
+          zip -r demo.zip PublicDemoName
+          popd
 
       - name: Upload binary to release
         uses: svenstaro/upload-release-action@v2
