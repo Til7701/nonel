@@ -2,9 +2,10 @@
 
 set -e
 
-echo "Running post rm with $1"
 if [ "$1" = 'remove' ]; then
+  # remove the installation folder
   rm -r /opt/fx-demo/
+  # remove the link in /bin
   rm /bin/fx-demo
 fi
 

@@ -2,9 +2,10 @@
 
 set -e
 
-echo "Running post inst with $1"
 if  [ "$1" = configure ]; then
+  # creating a desktop item
   xdg-desktop-menu install /opt/fx-demo/lib/fx-demo-PublicDemoName.desktop
+  # creating a link, so the application can be called from the command line
   ln -sf /opt/fx-demo/bin/PublicDemoName /bin/fx-demo
 fi
 
