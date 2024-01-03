@@ -4,7 +4,7 @@
 
 # Known TODOs
 
-- `XSetErrorHandler() called with a GDK error trap pushed. Don't do that.` when running on linux
+- `XSetErrorHandler() called with a GDK error trap pushed. Don't do that.` when running on linux. Seems to be a known problem since 2016: [JDK-8156779](https://bugs.openjdk.org/browse/JDK-8156779)
 - maybe use maven plugin management
 
 # Native Package Example for JavaFX Application
