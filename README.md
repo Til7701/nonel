@@ -5,15 +5,17 @@
 # Known TODOs
 
 - `XSetErrorHandler() called with a GDK error trap pushed. Don't do that.` when running on linux. Seems to be a known
-  problem since 2016: [JDK-8156779](https://bugs.openjdk.org/browse/JDK-8156779)
+  issue since 2016: [JDK-8156779](https://bugs.openjdk.org/browse/JDK-8156779)
 - maybe use maven plugin management
 - add icons in other resolutions
+- figure out, why apt does not run installation scripts properly
 
 # Native Package Example for JavaFX Application
 
 Everyone always talks about how to code fancy stuff in all kinds of programming languages, but never about how to deploy
 what you made in a user-friendly way. This repository wants to change that. It is an example of how to package a JavaFX
-application into native binaries. Specifically, a `deb` package for Linux and a `setup.exe` for Windows users.
+application into native binaries. Specifically, a `deb` package for Linux and a `setup.exe` for Windows users. It was
+a wild ride of trial and error `:)`
 
 In the following chapters I will explain how this is done and what you have to change, if you want to use this process
 for you own application.
@@ -48,51 +50,167 @@ profiles provide optional dependencies and configuration for plugins, which can 
 ## JLink
 
 JLink creates a custom JRE, which only contains the classes needed for this application. It is configured via the
-`javafx-maven-plugin` and called by the `javafx:jlink` goal.
+`javafx-maven-plugin` and called by the `javafx:jlink` goal. By adding the following to the plugin configuration, a lot
+of things are removed. These are not important for the end user.
 
-# Old README
+```xml
 
-This sample app is built with jpackage. In previous iterations of this project, it could also be built into a fat jar
-and further into a native
-image with GraalVM. However, these two options have been removed to reduce complexity of the build process.
+<configuration>
+    <stripDebug>true</stripDebug>
+    <compress>1</compress>
+    <noHeaderFiles>true</noHeaderFiles>
+    <noManPages>true</noManPages>
+</configuration>
 
-> Note: the deb package should be installed via `dpkg`.
+```
 
-## Building with jpackage
+## JPackage
 
-In this project jpackage is used to build a modular maven project into native binaries.
+The interesting part of this project is `jpackage`. It is a command line tool, which can convert a java application to
+a native image for the os you are on. Documentation can be found
+[here](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html).
 
-jpackage is configured via the `jpackage-maven-plugin`. Documentation and configuration options can be found
-[here](https://github.panteleyev.org/jpackage-maven-plugin/jpackage-mojo.html). Further documentation to jpackage itself
-can be found in the
-[jpackage command documentation](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html).
-Many options are made available via the plugin, analogue to the command line options. The `./jpackage` folder is set as
-the resource folder for jpackage. It contains further configuration.
+In this project jpackage is configured by the `jpackage-maven-plugin` from `org.panteleyev`. Documentation for the
+plugin can be found [here](https://github.panteleyev.org/jpackage-maven-plugin/jpackage-mojo.html).
 
-To build this goal, run one of the following. Note that the differences are the second profile selected via -P and you
-can usually only build for the platform you are currently on:
+The application can be built with three different targets. A .deb package, a windows setup executable and an app-image
+for the os you are on. JPackage provides more options, but these are the ones, which are configured here. So lets take
+a look at each of them.
+
+Also note the resource directory set by `<resourceDir>./jpackage</resourceDir>`. I will refer to this for the different
+goals.
+
+### DEB Package
+
+#### Configuration
+
+The maven profile `linux-deb` adds a bit of configuration to the `jpackage-maven-plugin`.
+
+```xml
+
+<configuration>
+    <type>DEB</type>
+    <linuxShortcut>true</linuxShortcut>
+    <linuxPackageName>fx-demo</linuxPackageName>
+    <linuxAppCategory>Utilities</linuxAppCategory>
+    <linuxMenuGroup>Utilities</linuxMenuGroup>
+</configuration>
+
+```
+
+This configuration also uses the resource directory.
+
+The icon for the app is automatically `PublicDemoName.png` due to the name set in the common plugin configuration.
+
+DEB packages have some scripts, which are called automatically by `dpkg`. Here two of them are overridden to add some
+functionality. The scripts are pretty self-explanatory. Documentation on these scripts in general can be found
+[here](https://www.debian.org/doc/debian-policy/ch-maintainerscripts.html).
+
+#### Building the package
+
+You can build the package by running:
 
 `mvn -P linux-deb clean compile javafx:jlink jpackage:jpackage`
 
+The package can be found in `target/dist/`.
+
+#### Installation
+
+To install this package on your computer, download the `.deb` file from the latest release and run:
+
+```shell
+dpkg -i fx-demo_amd64.deb
+```
+
+> Note: In our testing, installing via `apt` did **not** work properly. So you should use `dpkg`.
+
+### Windows Setup EXE
+
+#### Configuration
+
+The maven profile `windows-exe` adds a bit of configuration to the `jpackage-maven-plugin`.
+
+```xml
+
+<configuration>
+    <type>EXE</type>
+    <winMenu>true</winMenu>
+    <winUpgradeUuid>ed0a813c-d868-488d-9c23-1e16f0f4e8f6</winUpgradeUuid>
+</configuration>
+
+```
+
+This configuration also uses the resource directory.
+
+The icon for the app is automatically `PublicDemoName.ico` due to the name set in the common plugin configuration.
+
+#### Building the package
+
+You can build the package by running:
+
 `mvn -P windows-exe clean compile javafx:jlink jpackage:jpackage`
+
+The setup exe can be found in `target/dist/`.
+
+#### Installation
+
+To install this package on your computer, download the `.exe` file from the latest release and run it. It is not signed,
+so windows will ask you whether you really want to run it. Click "more information" and "Run Anyway". You can now find
+the application in your list of programs in the start menu.
+
+### App Image
+
+This should not be confused with the package format `AppImage` for linux. This option creates a standalone zip, which
+has a launcher script and only runs on the system it was built for.
+
+#### Configuration
+
+The maven profile `app-image` adds a bit of configuration to the `jpackage-maven-plugin`.
+
+```xml
+
+<configuration>
+    <type>APP_IMAGE</type>
+</configuration>
+
+```
+
+This configuration also uses the resource directory.
+
+The icon for the app is automatically `PublicDemoName.png` due to the name set in the common plugin configuration.
+
+#### Building the package
+
+You can build the package by running:
 
 `mvn -P app-image clean compile javafx:jlink jpackage:jpackage`
 
-## Building a fat jar (removed)
+The image can be found in `target/dist/`.
 
-Alternatively this project can be built into a fat jar to be executed with a jre which is provided by the end user.
-To use this option you have to replace the `pom.xml` with the `pom-fat-jar-xml`.
+#### Installation
 
-To build this goal, run: `mvn -P fat-jar clean install package` (removed)
+To install this package on your computer, download the `.exe` file from the latest release and run it. It is not signed,
+so windows will ask you whether you really want to run it. Click "more information" and "Run Anyway". You can now find
+the application in your list of programs in the start menu.
 
-## Building with GraalVM (NOT WORKING, removed from workflow)
+# Other Options
+
+The following describes options to get a similar result. However, they are not implemented in this repository.
+
+## Building a fat jar
+
+You could provide your users with a fat jar (jar with dependencies). Users will still need a jre installed on their
+computers. So this option is not very user-friendly.
+
+## Building with GraalVM
 
 To build a native image with GraalVM, just pass the fat jar to GraalVM. However, GraalVM has some problems with
 reflection and JavaFX is not yet supported. Maybe [Gluon](https://gluonhq.com/) is a valid alternative, but they have
 a priced license in some cases and I could not be bothered to investigate it further.
 
-The binaries created here, do not work as intended due to the reflection problems. They still require a jre (maybe even
-more). Unless there is a way to create the binaries as standalone executables, there is no need to use GraalVM.
-
 To build a native image with GraalVM, build the fat jar, setup GraalVM on your system and run:
 `native-image -jar target/fx-demo.jar`
+
+> Note: The jar has to be built with GraalVM as well.
+
+# Thanks to [JayPi4c](https://github.com/JayPi4c) for testing and helping
