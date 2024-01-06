@@ -1,4 +1,4 @@
-> how to build a JavaFX application into native binaries with maven using JLink and JPackage
+> how to build a JavaFX application into native binaries with Maven using JLink and JPackage
 
 [![.github/workflows/native.yaml](https://github.com/Til7701/javafx-native-image-sample/actions/workflows/native.yaml/badge.svg)](https://github.com/Til7701/javafx-native-image-sample/actions/workflows/native.yaml)
 
@@ -211,5 +211,9 @@ To build a native image with GraalVM, build the fat jar, setup GraalVM on your s
 `native-image -jar target/fx-demo.jar`
 
 > Note: The jar has to be built with GraalVM as well.
+
+# Further Reading
+- how to provide a PPA repository via GitHub pages to distribute DEB packages: [JayPi4c/ppaDemo](https://github.com/JayPi4c/ppaDemo)
+- how to publish a DEB package to the PPA repository: [JayPi4c/ExampleDebianPackage](https://github.com/JayPi4c/ExampleDebianPackage)
 
 # Thanks to [JayPi4c](https://github.com/JayPi4c) for testing and helping
