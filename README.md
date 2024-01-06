@@ -1,4 +1,4 @@
-> how to build a JavaFX application into native binaries
+> how to build a JavaFX application into native binaries with maven using JLink and JPackage
 
 [![.github/workflows/native.yaml](https://github.com/Til7701/javafx-native-image-sample/actions/workflows/native.yaml/badge.svg)](https://github.com/Til7701/javafx-native-image-sample/actions/workflows/native.yaml)
 
@@ -49,7 +49,7 @@ profiles provide optional dependencies and configuration for plugins, which can 
 
 ## JLink
 
-JLink creates a custom JRE, which only contains the classes needed for this application. It is configured via the
+JLink builds the application into a native binary and creates a custom JRE, which only contains the classes needed for this application. It is configured via the
 `javafx-maven-plugin` and called by the `javafx:jlink` goal. By adding the following to the plugin configuration, a lot
 of things are removed. These are not important for the end user.
 
@@ -66,9 +66,8 @@ of things are removed. These are not important for the end user.
 
 ## JPackage
 
-The interesting part of this project is `jpackage`. It is a command line tool, which can convert a java application to
-a native image for the os you are on (this is not true, maybe I will correct this later). Documentation can be found
-[here](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html).
+`jpackage` is a command line tool, which can package the binary built by `jlink` into a native setup binary. 
+Documentation can be found [here](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html).
 
 In this project jpackage is configured by the `jpackage-maven-plugin` from `org.panteleyev`. Documentation for the
 plugin can be found [here](https://github.panteleyev.org/jpackage-maven-plugin/jpackage-mojo.html).
