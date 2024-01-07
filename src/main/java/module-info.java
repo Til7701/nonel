@@ -1,8 +1,10 @@
 module demo {
-    requires static lombok;
+    requires java.desktop;
+
     requires javafx.graphics;
     requires javafx.controls;
-    requires java.desktop;
+
+    requires static lombok;
 
     exports de.holube.demo;
 }

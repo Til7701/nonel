@@ -2,10 +2,17 @@
 
 [![.github/workflows/native.yaml](https://github.com/Til7701/javafx-native-image-sample/actions/workflows/native.yaml/badge.svg)](https://github.com/Til7701/javafx-native-image-sample/actions/workflows/native.yaml)
 
-# Known TODOs
+# Known Issues
 
 - `XSetErrorHandler() called with a GDK error trap pushed. Don't do that.` when running on linux. Seems to be a known
   issue since 2016: [JDK-8156779](https://bugs.openjdk.org/browse/JDK-8156779)
+- The application name on Gnome is currently `de.holube.demo.MyApplication`. This is a known issue since
+  2022: [JDK-8287848](https://bugs.openjdk.org/browse/JDK-8287848). There are Workarounds
+  available [on StackOverflow](https://stackoverflow.com/questions/31219169/javafx-application-name-on-gnome). They are
+  not implemented here.
+
+# TODOs
+
 - maybe use maven plugin management
 - add icons in other resolutions
 - figure out, why apt does not run installation scripts properly
@@ -49,7 +56,8 @@ profiles provide optional dependencies and configuration for plugins, which can 
 
 ## JLink
 
-JLink builds the application into a native binary and creates a custom JRE, which only contains the classes needed for this application. It is configured via the
+JLink builds the application into a native binary and creates a custom JRE, which only contains the classes needed for
+this application. It is configured via the
 `javafx-maven-plugin` and called by the `javafx:jlink` goal. By adding the following to the plugin configuration, a lot
 of things are removed. These are not important for the end user.
 
@@ -66,7 +74,7 @@ of things are removed. These are not important for the end user.
 
 ## JPackage
 
-`jpackage` is a command line tool, which can package the binary built by `jlink` into a native setup binary. 
+`jpackage` is a command line tool, which can package the binary built by `jlink` into a native setup binary.
 Documentation can be found [here](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html).
 
 In this project jpackage is configured by the `jpackage-maven-plugin` from `org.panteleyev`. Documentation for the
@@ -213,7 +221,10 @@ To build a native image with GraalVM, build the fat jar, setup GraalVM on your s
 > Note: The jar has to be built with GraalVM as well.
 
 # Further Reading
-- how to provide a PPA repository via GitHub pages to distribute DEB packages: [JayPi4c/ppaDemo](https://github.com/JayPi4c/ppaDemo)
-- how to publish a DEB package to the PPA repository: [JayPi4c/ExampleDebianPackage](https://github.com/JayPi4c/ExampleDebianPackage)
+
+- how to provide a PPA repository via GitHub pages to distribute DEB
+  packages: [JayPi4c/ppaDemo](https://github.com/JayPi4c/ppaDemo)
+- how to publish a DEB package to the PPA
+  repository: [JayPi4c/ExampleDebianPackage](https://github.com/JayPi4c/ExampleDebianPackage)
 
 # Thanks to [JayPi4c](https://github.com/JayPi4c) for testing and helping
