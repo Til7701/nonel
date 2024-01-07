@@ -5,7 +5,7 @@ set -e
 echo "Running prerm for fx-demo with $1"
 if  [ "$1" = remove ]; then
   # remove a desktop item
-  #xdg-desktop-menu uninstall /opt/fx-demo/lib/fx-demo-PublicDemoName.desktop
+  xdg-desktop-menu uninstall /opt/fx-demo/lib/fx-demo-PublicDemoName.desktop
 fi
 
 exit 0
