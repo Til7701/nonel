@@ -1,4 +1,4 @@
-name: Native Image Build from JLink
+name: Native Image Build from JAR
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
 
   build-with-jpackage:
     needs: verify
-    name: Build on ${{ matrix.os.name }} with jpackage from jlink ${{ matrix.os.maven-profile }}
+    name: Build on ${{ matrix.os.name }} with jpackage from jar ${{ matrix.os.maven-profile }}
     runs-on: ${{ matrix.os.name }}
     strategy:
       matrix:
@@ -47,12 +47,12 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -P jlink-jpackage ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean compile javafx:jlink jpackage:jpackage
+          mvn -P jar-jpackage ${{ matrix.os.maven-profile }} --batch-mode --update-snapshots clean package jpackage:jpackage
 
       - name: zip target app-image
         if: contains(matrix.os.maven-profile, 'app-image')
         run: |
-          pushd target/dist
+          pushd ./dist
           zip -r demo.zip PublicDemoName
           popd
 
@@ -62,8 +62,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/dist/${{ matrix.os.binary-file-name }}
+          file: ./dist/${{ matrix.os.binary-file-name }}
           asset_name: ${{ matrix.os.release-name }}
           overwrite: true
-          tag: jlink-jpackage
-          release_name: native image with jpackage from jlink
+          tag: jar-jpackage
+          release_name: native image with jpackage from jar
