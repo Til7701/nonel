@@ -160,7 +160,7 @@
             </build>
         </profile>
         <profile>
-            <id>jlink-jpackage</id>
+            <id>jar-jpackage</id>
             <build>
                 <plugins>
                     <plugin>
