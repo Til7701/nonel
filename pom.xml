@@ -173,7 +173,7 @@
                             <input>target</input>
                             <destination>./dist</destination>
                             <mainClass>de.holube.demo.Launcher</mainClass>
-                            <mainJar>demo-${project.version}.jar</mainJar>
+                            <mainJar>demo.jar</mainJar>
                             <resourceDir>./jpackage</resourceDir>
                             <javaOptions>
                                 <option>-Dfile.encoding=UTF-8</option>
