@@ -173,7 +173,7 @@
                             <input>target</input>
                             <destination>./dist</destination>
                             <mainClass>de.holube.demo.Launcher</mainClass>
-                            <mainJar>demo.jar</mainJar>
+                            <mainJar>fx-demo.jar</mainJar>
                             <resourceDir>./jpackage</resourceDir>
                             <javaOptions>
                                 <option>-Dfile.encoding=UTF-8</option>
