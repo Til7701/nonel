@@ -13,8 +13,6 @@
 
 # TODOs
 
-- maybe use maven plugin management
-- add icons in other resolutions
 - figure out, why apt does not run installation scripts properly
 
 # Native Package Example for JavaFX Application
@@ -38,7 +36,7 @@ application. The class to provide should extend `Preloader`. I don't know whethe
 nice to know.
 
 Secondly, in `MyApplication` is a method called `setupIcons`. This method is called in the start method and sets the
-icon `src/main/resources/icons/icon.png` in the application bar and taskbar/dock. These icons are not always be set
+icon `src/main/resources/icons/icon.png` in the application bar and taskbar/dock. These icons are not always set
 automatically. So here they are set manually at runtime.
 
 ## Maven
@@ -168,7 +166,7 @@ the application in your list of programs in the start menu.
 ### App Image
 
 This should not be confused with the package format `AppImage` for linux. This option creates a standalone zip, which
-has a launcher script and only runs on the system it was built for.
+has a launcher script and only runs on the operating system it was built for.
 
 #### Configuration
 
