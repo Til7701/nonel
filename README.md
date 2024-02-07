@@ -198,16 +198,35 @@ To install this package on your computer, download the `.exe` file from the late
 so windows will ask you whether you really want to run it. Click "more information" and "Run Anyway". You can now find
 the application in your list of programs in the start menu.
 
-# Other Options
+### JAR with dependencies
 
-The following describes options to get a similar result. However, they are not implemented in this repository.
+This builds the project into a jar with dependencies. This is the most well known format for applications written with
+Java. However, this format is not very user-friendly, since the user needs a JRE installed on their system. The
+module-info.java file is deleted for this. So the project is no longer a module and you will get the JavaFX warning on
+startup.
 
-## Building a fat jar
+#### Configuration
 
-You could provide your users with a fat jar (jar with dependencies). Users will still need a jre installed on their
-computers. So this option is not very user-friendly.
+The maven profile `fat-jar` configures, how this project is built into a jar with dependencies. I won't go into detail
+of how this is done. There are enough tutorials for that.
 
-## Building with GraalVM
+#### Building the package
+
+You can build the package by running:
+
+`mvn -P fat-jar --batch-mode --update-snapshots clean install package`
+
+The jar can be found in `target/`.
+
+# JPackage without JLink
+
+You can use `jpackage` **without** `jlink` in case you cannot make a modular project due to dependencies. Keep in mind,
+that
+the results will be larger, as they contain all classes in the JVM.
+
+To do that, replace the `jar-jpackage` profile with the `jlink-jpackage` profile and remove the `javafx:jlink` goal.
+
+# Building with GraalVM
 
 To build a native image with GraalVM, just pass the fat jar to GraalVM. However, GraalVM has some problems with
 reflection and JavaFX is not yet supported. Maybe [Gluon](https://gluonhq.com/) is a valid alternative, but they have
