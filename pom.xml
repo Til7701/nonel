@@ -15,7 +15,7 @@
         <javafx.version>21.0.2</javafx.version>
         <lombok.version>1.18.30</lombok.version>
         <junit.version>5.10.2</junit.version>
-        <mockito.version>5.10.0</mockito.version>
+        <mockito.version>5.11.0</mockito.version>
 
         <!-- build -->
         <maven.compiler.source>21</maven.compiler.source>
